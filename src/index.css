@@ -1,0 +1,90 @@
+@import 'tailwindcss';
+
+/* ── Brand tokens, sampled from the Foundation logo ───────────────── */
+@theme {
+  --color-vf-blue: #00a3da;
+  --color-vf-green: #9ec83e;
+  --color-vf-red: #d8232a;
+  --color-vf-purple: #958eb8;
+  --color-ink: #151314;
+  --color-ink-2: #3d3b3c;
+  --color-paper: #f5f7f4;
+  --color-card: #ffffff;
+  --color-line: #e2e6df;
+  --color-line-2: #cfd5ca;
+  --color-muted: #6e7370;
+
+  --font-mono: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas,
+    'Liberation Mono', monospace;
+  --font-sans: ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+
+  --radius-card: 10px;
+}
+
+@layer base {
+  html,
+  body {
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: 15px;
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0;
+  }
+
+  a {
+    color: var(--color-vf-blue);
+  }
+
+  button {
+    font-family: inherit;
+    font-size: inherit;
+  }
+
+  :focus-visible {
+    outline: 2.5px solid var(--color-vf-blue);
+    outline-offset: 2px;
+    border-radius: 4px;
+  }
+}
+
+/* the hatch that stands for "we do not have this data" */
+@utility hatch {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--color-line-2) 0 1.5px,
+    transparent 1.5px 6px
+  );
+}
+
+/* Indeterminate progress bar used while a background refetch is in flight. */
+@keyframes fetch-bar {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(400%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
