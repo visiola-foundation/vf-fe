@@ -1,5 +1,6 @@
 import { Navigate, useLocation } from 'react-router-dom';
 import { logoUrl } from '../lib/api';
+import { SKIP_AUTH } from '../lib/api/config';
 import { useSession } from '../queries/useSession';
 
 /** While the session restores: branded splash with a progress bar. */
@@ -25,6 +26,7 @@ export function RequireAuth({ children }: { children: JSX.Element }) {
   const session = useSession();
   const location = useLocation();
 
+  if (SKIP_AUTH) return children;
   if (session.isLoading) return <SessionSplash />;
   if (!session.data) {
     return (

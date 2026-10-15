@@ -26,7 +26,7 @@ import { getOrFallback, withParams } from './shared';
 
 /** v0 monolith accessor — the whole snapshot until per-page splits land. */
 export async function fetchDashboard(signal?: AbortSignal): Promise<MisData> {
-  return getOrFallback('/mis/dashboard', { signal }, (s) => s);
+  return getOrFallback('/stats/overview', { signal }, (s) => s);
 }
 
 export async function fetchSchools(signal?: AbortSignal): Promise<string[]> {

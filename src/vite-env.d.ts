@@ -7,6 +7,12 @@ interface ImportMetaEnv {
    * `public/data/mis-dashboard.json` ("UI-only" mode).
    */
   readonly VITE_API_BASE_URL?: string;
+
+  /**
+   * Set to true to bypass the login wall while testing backend routes.
+   * The app will still hit the configured backend without a session token.
+   */
+  readonly VITE_SKIP_AUTH?: string;
 }
 
 interface ImportMeta {

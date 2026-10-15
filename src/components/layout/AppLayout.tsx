@@ -1,7 +1,8 @@
 import type { ComponentType } from 'react';
 import { Navigate, useNavigate, useParams } from 'react-router-dom';
 import type { MisData } from '../../types/mis';
-import { canAccess, firstAllowedPage, isPage, roleLabel, type PageId } from '../../lib/access';
+import { canAccess, firstAllowedPage, isPage, roleLabel } from '../../lib/access';
+import { SKIP_AUTH } from '../../lib/api/config';
 import { useMisData } from '../../queries/useMisData';
 import { useLogout, useSession } from '../../queries/useSession';
 import { TopBar } from './TopBar';
@@ -12,18 +13,18 @@ import { Overview } from '../../pages/Overview';
 import { Reach } from '../../pages/Reach';
 import { Ascg } from '../../pages/Ascg';
 import { Cbc } from '../../pages/Cbc';
-import { Prog3 } from '../../pages/Prog3';
+import { SC } from '../../pages/Prog3';
 import { Register } from '../../pages/Register';
 import { Quality } from '../../pages/Quality';
 import { Board } from '../../pages/Board';
 import { Proposed } from '../../pages/Proposed';
 
-const PAGES_MAP: Record<PageId, ComponentType<{ data: MisData }>> = {
+const PAGES_MAP: Record<string, ComponentType<{ data: MisData }>> = {
   overview: Overview,
   reach: Reach,
   ascg: Ascg,
   cbc: Cbc,
-  prog3: Prog3,
+  sc: SC,
   register: Register,
   quality: Quality,
   board: Board,
@@ -52,15 +53,19 @@ export function AppLayout() {
   const { page: pageParam } = useParams();
   const query = useMisData();
 
-  if (!session.data) return null; // guard redirects to /login
-  const user = session.data;
+  const user = session.data ?? (SKIP_AUTH ? { email: 'local@dev', name: 'Local testing', role: 'admin' as const } : null);
+  if (!user) return null; // guard redirects to /login
   const role = user.role;
 
   const page = isPage(pageParam) ? pageParam : null;
   if (!page || !canAccess(role, page)) {
     return <Navigate to={`/${firstAllowedPage(role)}`} replace />;
   }
+
   const Page = PAGES_MAP[page];
+  if (!Page) {
+    return <Navigate to={`/${firstAllowedPage(role)}`} replace />;
+  }
 
   function onSignOut() {
     logout.mutate(undefined, { onSettled: () => navigate('/login', { replace: true }) });

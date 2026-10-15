@@ -5,7 +5,7 @@ export type PageId =
   | 'reach'
   | 'ascg'
   | 'cbc'
-  | 'prog3'
+  | 'sc'
   | 'register'
   | 'quality'
   | 'board'
@@ -27,8 +27,8 @@ export interface PageDef {
 /* ── Access model. Mirrors the SQL grants; the database is what enforces
       it for real, this only decides what the interface offers. ─────── */
 export const ACCESS: Record<Role, PageId[]> = {
-  admin: ['overview', 'reach', 'ascg', 'cbc', 'prog3', 'register', 'quality', 'board', 'proposed'],
-  staff: ['overview', 'reach', 'ascg', 'cbc', 'prog3', 'quality', 'proposed'],
+  admin: ['overview', 'reach', 'ascg', 'cbc', 'sc', 'register', 'quality', 'board', 'proposed'],
+  staff: ['overview', 'reach', 'ascg', 'cbc', 'sc', 'quality', 'proposed'],
   board: ['board'],
 };
 
@@ -43,7 +43,7 @@ export const PAGES: PageDef[] = [
   { id: 'reach', label: 'Reach and enrolment', group: 'Programmes' },
   { id: 'ascg', label: 'ASCG academic', group: 'Programmes' },
   { id: 'cbc', label: 'Coding Boot Camp', group: 'Programmes' },
-  { id: 'prog3', label: 'Programme 3', group: 'Programmes' },
+  { id: 'sc', label: 'STEM Camp', group: 'Programmes' },
   { id: 'register', label: 'Student register', group: 'Records' },
   { id: 'quality', label: 'Data quality', group: 'Records' },
   { id: 'board', label: 'Board summary', group: 'Governance' },

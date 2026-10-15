@@ -8,7 +8,7 @@ import { getOrFallback } from './shared';
 
 export async function fetchOverview(signal?: AbortSignal): Promise<OverviewPayload> {
   return getOrFallback(
-    '/mis/overview',
+    '/stats/overview',
     { signal },
     (s) => ({ generated: s.generated, totals: s.totals, completeness: s.completeness }),
   );

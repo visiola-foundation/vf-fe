@@ -1,4 +1,5 @@
 import { createBrowserRouter, Navigate } from 'react-router-dom';
+import { SKIP_AUTH } from './lib/api/config';
 import { AppLayout } from './components/layout/AppLayout';
 import { Login } from './pages/Login';
 import { RequireAuth } from './pages/RequireAuth';
@@ -22,6 +23,6 @@ export const router = createBrowserRouter([
       </RequireAuth>
     ),
   },
-  { path: '*', element: <Navigate to="/login" replace /> },
+  { path: '*', element: <Navigate to={SKIP_AUTH ? '/' : '/login'} replace /> },
 ]);
 

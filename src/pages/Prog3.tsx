@@ -1,11 +1,11 @@
 import { EmptyState } from '../components/ui/primitives';
 import { Eyebrow, Lede, PageTitle } from '../components/ui/layout';
 
-export function Prog3() {
+export function SC() {
   return (
     <>
       <Eyebrow>Programmes</Eyebrow>
-      <PageTitle>Programme 3</PageTitle>
+      <PageTitle>STEM Camps</PageTitle>
       <Lede>
         A third programme is referred to in the brief but is not named or described in any
         document supplied, and no records exist for it.
